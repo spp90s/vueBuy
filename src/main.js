@@ -3,6 +3,10 @@
 import Vue from 'vue'
 import App from './App.vue'
 
+// 导入element-ui
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
 // 导入样式（在App.vue里也可以导入）
 // import './assets/statics/site/css/style.css';
 
@@ -13,6 +17,7 @@ import index from './components/index.vue';
 
 // use一下
 Vue.use(VueRouter);
+Vue.use(ElementUI);
 
 // 写路由规则
 const routes = [
