@@ -6,8 +6,29 @@ import App from './App.vue'
 // 导入样式（在App.vue里也可以导入）
 // import './assets/statics/site/css/style.css';
 
+// 路由相关
+import VueRouter from 'vue-router';
+
+// use一下
+Vue.use(VueRouter);
+
+// 写路由规则
+const routes = [
+  {
+    path: '/index',
+    // components: 
+  }
+]
+
+// 实例化路由对象
+const router = new VueRouter({
+    routes
+});
+
 // Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
+  // 挂载到Vue实例上
+  router
 }).$mount('#app')
