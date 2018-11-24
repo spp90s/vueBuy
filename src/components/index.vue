@@ -19,21 +19,21 @@
                                         <span>手机数码</span>
                                         <p>
                                             <span>
-                                                        手机通讯&nbsp;
-                                                    </span>
+                                                                手机通讯&nbsp;
+                                                            </span>
                                             <span>
-                                                        摄影摄像&nbsp;
-                                                    </span>
+                                                                摄影摄像&nbsp;
+                                                            </span>
                                             <span>
-                                                        存储设备&nbsp;
-                                                    </span>
+                                                                存储设备&nbsp;
+                                                            </span>
                                         </p>
                                     </h3>
                                     <div class="item-box">
                                         <dl>
                                             <dt>
-                                                        <a href="/goods/40.html">手机数码</a>
-                                                    </dt>
+                                                                <a href="/goods/40.html">手机数码</a>
+                                                            </dt>
                                             <dd>
                                                 <a href="/goods/43.html">手机通讯</a>
                                                 <a href="/goods/43.html">摄影摄像</a>
@@ -48,21 +48,21 @@
                                         <span>电脑办公</span>
                                         <p>
                                             <span>
-                                                        电脑整机&nbsp;
-                                                    </span>
+                                                                电脑整机&nbsp;
+                                                            </span>
                                             <span>
-                                                        外设产品&nbsp;
-                                                    </span>
+                                                                外设产品&nbsp;
+                                                            </span>
                                             <span>
-                                                        办公打印&nbsp;
-                                                    </span>
+                                                                办公打印&nbsp;
+                                                            </span>
                                         </p>
                                     </h3>
                                     <div class="item-box">
                                         <dl>
                                             <dt>
-                                                        <a href="/goods/40.html">电脑办公</a>
-                                                    </dt>
+                                                                <a href="/goods/40.html">电脑办公</a>
+                                                            </dt>
                                             <dd>
                                                 <a href="/goods/43.html">电脑整机</a>
                                                 <a href="/goods/43.html">外设产品</a>
@@ -77,21 +77,21 @@
                                         <span>影音娱乐</span>
                                         <p>
                                             <span>
-                                                        平板电视&nbsp;
-                                                    </span>
+                                                                平板电视&nbsp;
+                                                            </span>
                                             <span>
-                                                        音响DVD&nbsp;
-                                                    </span>
+                                                                音响DVD&nbsp;
+                                                            </span>
                                             <span>
-                                                        影音配件&nbsp;
-                                                    </span>
+                                                                影音配件&nbsp;
+                                                            </span>
                                         </p>
                                     </h3>
                                     <div class="item-box">
                                         <dl>
                                             <dt>
-                                                        <a href="/goods/40.html">影音娱乐</a>
-                                                    </dt>
+                                                                <a href="/goods/40.html">影音娱乐</a>
+                                                            </dt>
                                             <dd>
                                                 <a href="/goods/43.html">平板电视</a>
                                                 <a href="/goods/43.html">音响DVD</a>
@@ -106,18 +106,18 @@
                                         <span>服装类</span>
                                         <p>
                                             <span>
-                                                        男装&nbsp;
-                                                    </span>
+                                                                男装&nbsp;
+                                                            </span>
                                             <span>
-                                                        女装&nbsp;
-                                                    </span>
+                                                                女装&nbsp;
+                                                            </span>
                                         </p>
                                     </h3>
                                     <div class="item-box">
                                         <dl>
                                             <dt>
-                                                        <a href="/goods/40.html">服装类</a>
-                                                    </dt>
+                                                                <a href="/goods/40.html">服装类</a>
+                                                            </dt>
                                             <dd>
                                                 <a href="/goods/43.html">男装</a>
                                                 <a href="/goods/43.html">女装</a>
@@ -158,46 +158,18 @@
                     <!--/幻灯片-->
                     <div class="left-220">
                         <ul class="side-img-list">
-                            <li>
+                            <li v-for="(item, index) in toplist" :key="item.id">
                                 <div class="img-box">
-                                    <label>1</label>
-                                    <img src="http://39.108.135.214:8899/imgs/SJ4EgwosX0wTqvyAvhtFGT1w.jpg">
+                                    <label>{{index+1}}</label>
+                                    <img :src="item.img_url">
                                 </div>
                                 <div class="txt-box">
-                                    <a href="/goods/show-98.html">骆驼男装2017秋季新款运动休闲纯色夹克青年宽松长袖针织开衫卫衣</a>
-                                    <span>2017-09-26</span>
+                                    <a href="/goods/show-98.html">{{item.title}}</a>
+                                    <!-- 请求回来的数据中日期格式需要moment.js和过滤器处理一下，在赋值给组件 -->
+                                    <span>{{item.add_time}}</span>
                                 </div>
                             </li>
-                            <li>
-                                <div class="img-box">
-                                    <label>2</label>
-                                    <img src="http://39.108.135.214:8899/upload/201504/20/thumb_201504200314272543.jpg">
-                                </div>
-                                <div class="txt-box">
-                                    <a href="/goods/show-98.html">奔腾（BNTN） 380功放+纽约至尊 套装家庭影院</a>
-                                    <span>2015-04-20</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="img-box">
-                                    <label>3</label>
-                                    <img src="http://39.108.135.214:8899/upload/201504/20/thumb_201504200318534459.jpg">
-                                </div>
-                                <div class="txt-box">
-                                    <a href="/goods/show-98.html">飞利浦（PHILIPS）DVP3690 全高清DVD影碟机播放器</a>
-                                    <span>2015-04-20</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="img-box">
-                                    <label>4</label>
-                                    <img src="http://39.108.135.214:8899/upload/201504/20/thumb_201504200258403759.jpg">
-                                </div>
-                                <div class="txt-box">
-                                    <a href="/goods/show-98.html">三星（SAMSUNG）UA40HU5920JXXZ 40英寸4K超高清</a>
-                                    <span>2015-04-20</span>
-                                </div>
-                            </li>
+               
                         </ul>
                     </div>
                 </div>
@@ -210,8 +182,8 @@
                     <a href="/goods/43.html">手机通讯</a>
                     <a href="/goods/43.html">摄影摄像</a>
                     <a href="/goods/40.html">更多
-                                <i>+</i>
-                            </a>
+                                        <i>+</i>
+                                    </a>
                 </p>
             </div>
             <div class="wrapper clearfix">
@@ -229,8 +201,8 @@
                                     <p>
                                         <strong>库存 60</strong>
                                         <span>市场价：
-                                                    <s>2499</s>
-                                                </span>
+                                                            <s>2499</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -247,8 +219,8 @@
                                     <p>
                                         <strong>库存 198</strong>
                                         <span>市场价：
-                                                    <s>6388</s>
-                                                </span>
+                                                            <s>6388</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -265,8 +237,8 @@
                                     <p>
                                         <strong>库存 59</strong>
                                         <span>市场价：
-                                                    <s>2699</s>
-                                                </span>
+                                                            <s>2699</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -283,8 +255,8 @@
                                     <p>
                                         <strong>库存 100</strong>
                                         <span>市场价：
-                                                    <s>5099</s>
-                                                </span>
+                                                            <s>5099</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -301,8 +273,8 @@
                                     <p>
                                         <strong>库存 10</strong>
                                         <span>市场价：
-                                                    <s>3150</s>
-                                                </span>
+                                                            <s>3150</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -319,8 +291,8 @@
                     <a href="/goods/43.html">外设产品</a>
                     <a href="/goods/43.html">办公打印</a>
                     <a href="/goods/40.html">更多
-                                <i>+</i>
-                            </a>
+                                        <i>+</i>
+                                    </a>
                 </p>
             </div>
             <div class="wrapper clearfix">
@@ -338,8 +310,8 @@
                                     <p>
                                         <strong>库存 99</strong>
                                         <span>市场价：
-                                                    <s>4599</s>
-                                                </span>
+                                                            <s>4599</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -356,8 +328,8 @@
                                     <p>
                                         <strong>库存 10</strong>
                                         <span>市场价：
-                                                    <s>7988</s>
-                                                </span>
+                                                            <s>7988</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -374,8 +346,8 @@
                                     <p>
                                         <strong>库存 100</strong>
                                         <span>市场价：
-                                                    <s>99</s>
-                                                </span>
+                                                            <s>99</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -392,8 +364,8 @@
                                     <p>
                                         <strong>库存 100</strong>
                                         <span>市场价：
-                                                    <s>2099</s>
-                                                </span>
+                                                            <s>2099</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -410,8 +382,8 @@
                                     <p>
                                         <strong>库存 100</strong>
                                         <span>市场价：
-                                                    <s>2099</s>
-                                                </span>
+                                                            <s>2099</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -428,8 +400,8 @@
                     <a href="/goods/43.html">音响DVD</a>
                     <a href="/goods/43.html">影音配件</a>
                     <a href="/goods/40.html">更多
-                                <i>+</i>
-                            </a>
+                                        <i>+</i>
+                                    </a>
                 </p>
             </div>
             <div class="wrapper clearfix">
@@ -447,8 +419,8 @@
                                     <p>
                                         <strong>库存 100</strong>
                                         <span>市场价：
-                                                    <s>3599</s>
-                                                </span>
+                                                            <s>3599</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -465,8 +437,8 @@
                                     <p>
                                         <strong>库存 10</strong>
                                         <span>市场价：
-                                                    <s>5880</s>
-                                                </span>
+                                                            <s>5880</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -483,8 +455,8 @@
                                     <p>
                                         <strong>库存 100</strong>
                                         <span>市场价：
-                                                    <s>499</s>
-                                                </span>
+                                                            <s>499</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -501,8 +473,8 @@
                                     <p>
                                         <strong>库存 49</strong>
                                         <span>市场价：
-                                                    <s>2999</s>
-                                                </span>
+                                                            <s>2999</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -519,8 +491,8 @@
                                     <p>
                                         <strong>库存 20</strong>
                                         <span>市场价：
-                                                    <s>269</s>
-                                                </span>
+                                                            <s>269</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -535,8 +507,8 @@
                 <p>
                     <a href="/goods/43.html">男装</a>
                     <a href="/goods/40.html">更多
-                                <i>+</i>
-                            </a>
+                                        <i>+</i>
+                                    </a>
                 </p>
             </div>
             <div class="wrapper clearfix">
@@ -554,8 +526,8 @@
                                     <p>
                                         <strong>库存 200</strong>
                                         <span>市场价：
-                                                    <s>1000</s>
-                                                </span>
+                                                            <s>1000</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -572,8 +544,8 @@
                                     <p>
                                         <strong>库存 100</strong>
                                         <span>市场价：
-                                                    <s>297</s>
-                                                </span>
+                                                            <s>297</s>
+                                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -586,8 +558,55 @@
 </template>
 
 <script>
+    // 在哪用，就在哪儿导入axios
+    import axios from 'axios';
+    // // 发请求，获取数据
+    // axios.get('http://111.230.232.110:8899/site/goods/gettopdata/goods').then(response => {
+    //     console.log(response);
+    //     // 设置给组件中的data中的数据
+    //     console.log(this);  //undefined 说明写在这里的axios的回调函数里拿不到当前这个index组件
+    // })
     export default {
-        name: "index"
+        name: "index",
+        data: function() {
+            return {
+                // message: 'haha'
+                // 分类列表
+                catelist: [],
+                // 轮播图
+                sliderlist: [],
+                // 热卖列表
+                toplist: []
+            }
+        },
+        // methods: {
+        //     // 需要手动调用
+        // },
+        // computed: {
+        //     // 需要页面去{挖坑}
+        // }
+        // 上面两种方式都不好，生命周期钩子（生命周期钩子的 this 上下文指向调用它的 Vue 实例）
+        beforeCreate() {
+            // 创建Vue实例之前
+            console.log('beforeCreate');
+            console.log(this.message);
+        },
+        created() {
+            // 创建Vue实例完毕（在这里才可以访问到vue组件中的内容）
+            console.log('created');
+            console.log(this.message);
+            // 发请求，获取数据
+            axios.get('http://111.230.232.110:8899/site/goods/gettopdata/goods').then(response => {
+                console.log(response);
+                // 设置给组件中的data中的数据
+                console.log(this); //VueComponent 说明写在这里的axios的回调函数里拿到了当前这个index组件
+                
+                this.catelist = response.data.message.catelist;
+                this.sliderlist = response.data.message.sliderlist;
+                // 请求回来的数据中日期格式需要moment.js和过滤器处理一下，在赋值给组件
+                this.toplist = response.data.message.toplist;
+            })
+        },
     };
 </script>
 

@@ -17,6 +17,11 @@ Vue.use(VueRouter);
 // 写路由规则
 const routes = [
   {
+    // 根目录也对应到index组件即可（还可以重定向）
+    path: '/',
+    component: index
+  },
+  {
     path: '/index',
     component: index
   }

@@ -3,6 +3,8 @@
         <img alt="Vue logo" src="./assets/logo.png">
         <HelloWorld msg="Welcome to Your Vue.js App"/>
       </div> -->
+
+    <!-- App.vue是最顶级的组件（类似于布局中最顶级的那个div，最外面的那个容器），router-link、router-view放这里，其他组件都放components里 -->
     <div>
         <!-- 顶部 -->
         <div class="header">
@@ -10,7 +12,7 @@
             <div class="head-top">
                 <div class="section">
                     <div class="left-box">
-                        <span>黑马买买买</span>
+                        <span>微买</span>
                         <a target="_blank" href="#"></a>
                         <a target="_blank" href="#"></a>
                     </div>
@@ -59,7 +61,7 @@
                             </li>
                             <li class="video">
                                 <a href="#" class="">
-                                    <span class="out" style="top: 0px;">黑马超市</span>
+                                    <span class="out" style="top: 0px;">微超市</span>
                                 </a>
                             </li>
                             <li class="down">
@@ -85,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <!-- 组件出口 -->
+        <!-- 路由出口 -->
         <router-view></router-view>
         <!-- 底部 -->
         <div class="footer">
@@ -107,9 +109,9 @@
                 </div>
                 <div class="foot-box">
                     <div class="copyright">
-                        <p>版权所有 黑马买买买 </p>
+                        <p>版权所有 微买 </p>
                         <p>公司地址： 联系电话：</p>
-                        <p class="gray">Copyright © 2009-2018 itcast Corporation,All Rights Reserved.</p>
+                        <p class="gray">Copyright © 2009-2018 webuy Corporation,All Rights Reserved.</p>
                     </div>
                     <div class="service">
                         <p>周一至周日 9:00-24:00</p>
@@ -124,11 +126,13 @@
 
 <script>
     // import HelloWorld from './components/HelloWorld.vue'
-    // App.vue是最顶级的组件（类似于布局中最顶级的那个div，最外面的那个容器），router-link、router-view放这里，其他组件都放components里
+    
+    // 暴露组件
     export default {
-        // 这个name跟模板里的id无关（删掉都可以），这个name是chrome的dev-tools里看到的名字
+        // 这个name跟模板里的id无关（id删掉都可以），这个name是chrome的dev-tools里看到的名字
         // name: 'app',
         name: "webuy"
+        
         // components: {
         //   HelloWorld
         // }
