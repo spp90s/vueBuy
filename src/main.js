@@ -8,6 +8,8 @@ import App from './App.vue'
 
 // 路由相关
 import VueRouter from 'vue-router';
+// 导入index组件
+import index from './components/index.vue';
 
 // use一下
 Vue.use(VueRouter);
@@ -16,7 +18,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/index',
-    // components: 
+    component: index
   }
 ]
 
