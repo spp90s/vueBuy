@@ -1,6 +1,8 @@
-// main.js是项目入口，所有全局的东西都写到main.js里
+// main.js是项目入口文件，所有全局的东西都写到main.js里
 
 import Vue from 'vue'
+
+// 根组件
 import App from './App.vue'
 
 // 导入element-ui
@@ -15,16 +17,19 @@ import VueRouter from 'vue-router';
 // 导入index组件
 import index from './components/index.vue';
 
-// use一下
+// 模块化开发要use一下
 Vue.use(VueRouter);
 Vue.use(ElementUI);
 
 // 写路由规则
 const routes = [
   {
-    // 根目录也对应到index组件即可（还可以重定向）
+    // 根目录也对应到index组件即可
     path: '/',
-    component: index
+    // component: index
+
+    // 或重定向到首页
+    redirect: "/index"
   },
   {
     path: '/index',
@@ -40,6 +45,7 @@ const router = new VueRouter({
 // Vue.config.productionTip = false
 
 new Vue({
+  // 用代码的方式告诉vue要渲染什么东西（把App.vue渲染出来）
   render: h => h(App),
   // 挂载到Vue实例上
   router

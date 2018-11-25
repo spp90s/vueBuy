@@ -4,7 +4,7 @@
         <HelloWorld msg="Welcome to Your Vue.js App"/>
       </div> -->
 
-    <!-- App.vue是最顶级的组件（类似于布局中最顶级的那个div，最外面的那个容器），router-link、router-view放这里，其他组件都放components里 -->
+    <!-- App.vue是最顶级的组件 根组件（类似于布局中最顶级的那个div，最外面的那个容器），router-link、router-view放这里，其他组件都放components里 -->
     <div>
         <!-- 顶部 -->
         <div class="header">
@@ -129,7 +129,7 @@
     
     // 暴露组件
     export default {
-        // 这个name跟模板里的id无关（id删掉都可以），这个name是chrome的dev-tools里看到的名字
+        // 这个name跟模板里的id无关（id删掉都可以），这个name将会是在chrome的dev-tools里看到的名字
         // name: 'app',
         name: "webuy"
         
