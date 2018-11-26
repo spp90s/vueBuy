@@ -19,6 +19,8 @@ import VueLazyload from 'vue-lazyload';
 import VueRouter from 'vue-router';
 // 导入index组件
 import index from './components/index.vue';
+// 导入detail组件
+import detail from './components/detail.vue';
 
 // 模块化开发要use一下
 Vue.use(VueRouter);
@@ -54,6 +56,12 @@ const routes = [
   {
     path: '/index',
     component: index
+  },
+  {
+    // 动态路径参数，以冒号开头
+    // 当匹配到一个路由时，参数值会被设置到 this.$route.params 这个对象里
+    path: '/detail/:xxoo',
+    component: detail
   }
 ]
 

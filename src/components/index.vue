@@ -92,7 +92,9 @@
                 <div class="wrap-box">
                     <ul class="img-list">
                         <li v-for="(datasItem, dataIndex) in item.datas" :key="datasItem.artID">
-                            <a href="#/site/goodsinfo/87" class="">
+                            <!-- <a href="#/site/goodsinfo/87" class=""> -->
+                            <!-- 因为是动态路由匹配，需要v-bind:to -->
+                            <router-link :to="'/detail/' + datasItem.artID">
                                 <div class="img-box">
                                     <!-- <img :src="datasItem.img_url"> -->
                                     <!-- 使用懒加载的指令 -->
@@ -109,7 +111,8 @@
                                             </span>
                                     </p>
                                 </div>
-                            </a>
+                            </router-link>
+                            <!-- </a> -->
                         </li>
                     </ul>
                 </div>
