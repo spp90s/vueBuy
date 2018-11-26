@@ -25,14 +25,18 @@ Vue.use(VueRouter);
 Vue.use(ElementUI);
 // Vue.use(VueLazyload);
 Vue.use(VueLazyload, {
+
   // 预加载高度比
   // preLoad: 1.3,
+
   // 加载图片失败
-  error: 'dist/error.png',
+  // error: 'dist/error.png',
+
   // 加载图片成功
   // loading: './assets/statics/img/lazyloadPic.png',
   // 上面这样写是不会加载成功的，Vue模块化开发中，图片也是资源，需要引入
-  loading: require('./assets/statics/img/lazyloadPic.png'),
+  error: require('./assets/statics/img/error.png'),
+  loading: require('./assets/statics/img/lazyloadPic.png')
   // 尝试次数
   // attempt: 1
 })
