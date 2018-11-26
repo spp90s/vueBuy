@@ -83,9 +83,7 @@
                 <p>
                     <a href="/goods/43.html">手机通讯</a>
                     <a href="/goods/43.html">摄影摄像</a>
-                    <a href="/goods/40.html">更多
-                                                        <i>+</i>
-                                                    </a>
+                    <a href="/goods/40.html">更多<i>+</i></a>
                 </p>
             </div>
             <div class="wrapper clearfix">
@@ -103,8 +101,8 @@
                                     <p>
                                         <strong>库存 60</strong>
                                         <span>市场价：
-                                                                            <s>2499</s>
-                                                                        </span>
+                                        <s>2499</s>
+                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -121,8 +119,8 @@
                                     <p>
                                         <strong>库存 198</strong>
                                         <span>市场价：
-                                                                            <s>6388</s>
-                                                                        </span>
+                                        <s>6388</s>
+                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -139,8 +137,8 @@
                                     <p>
                                         <strong>库存 59</strong>
                                         <span>市场价：
-                                                                            <s>2699</s>
-                                                                        </span>
+                                        <s>2699</s>
+                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -157,8 +155,8 @@
                                     <p>
                                         <strong>库存 100</strong>
                                         <span>市场价：
-                                                                            <s>5099</s>
-                                                                        </span>
+                                        <s>5099</s>
+                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -175,8 +173,8 @@
                                     <p>
                                         <strong>库存 10</strong>
                                         <span>市场价：
-                                                                            <s>3150</s>
-                                                                        </span>
+                                        <s>3150</s>
+                                        </span>
                                     </p>
                                 </div>
                             </a>
@@ -192,9 +190,7 @@
                     <a href="/goods/43.html">电脑整机</a>
                     <a href="/goods/43.html">外设产品</a>
                     <a href="/goods/43.html">办公打印</a>
-                    <a href="/goods/40.html">更多
-                                                        <i>+</i>
-                                                    </a>
+                    <a href="/goods/40.html">更多<i>+</i></a>
                 </p>
             </div>
             <div class="wrapper clearfix">
@@ -470,6 +466,8 @@ import axios from "axios";
 // })
 // 导入moment.js
 import moment from "moment";
+
+// 类似于module.exports
 export default {
   name: "index",
   data: function() {
@@ -526,7 +524,7 @@ export default {
         console.log(this); //VueComponent 说明写在这里的axios的回调函数里拿到了当前这个index组件
         this.catelist = response.data.message.catelist;
         this.sliderlist = response.data.message.sliderlist;
-        // 请求回来的数据中日期格式需要vue过滤器处理一下（双花括号插值），在赋值给组件
+        // 请求回来的数据中日期格式需要Vue过滤器filters处理一下（双花括号插值），在赋值给组件
         this.toplist = response.data.message.toplist;
       });
   }

@@ -1,9 +1,8 @@
 <template>
     <!-- <div id="app">
-        <img alt="Vue logo" src="./assets/logo.png">
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
-      </div> -->
-
+                            <img alt="Vue logo" src="./assets/logo.png">
+                            <HelloWorld msg="Welcome to Your Vue.js App"/>
+                          </div> -->
     <!-- App.vue是最顶级的组件 根组件（类似于布局中最顶级的那个div，最外面的那个容器），router-link、router-view放这里，其他组件都放components里 -->
     <div>
         <!-- 顶部 -->
@@ -31,9 +30,10 @@
                         </span>
                         <a href="" class="">
                             <i class="iconfont icon-cart"></i>购物车(
-                            <span id="shoppingCartCount">
+                                <span id="shoppingCartCount">
                                 <span>4</span>
-                            </span>)</a>
+                            </span>)
+                        </a>
                     </div>
                 </div>
             </div>
@@ -126,28 +126,111 @@
 
 <script>
     // import HelloWorld from './components/HelloWorld.vue'
-    
+    // 导入jquery
+    import $ from 'jquery';
     // 暴露组件
     export default {
         // 这个name跟模板里的id无关（id删掉都可以），这个name将会是在chrome的dev-tools里看到的名字
         // name: 'app',
-        name: "webuy"
-        
+        name: "webuy",
+
         // components: {
         //   HelloWorld
         // }
+
+        // 单文件组件开发中，代码一般都是写在跟组件相关的地方，这里还是老套路用了jQuery的入口函数，既然使用了Vue，就考虑生命周期函数
+
+        // 生命周期函数那么多，用哪一个呢？放在created函数里没效果
+
+        // 挂载之前（把template中的结构渲染出来之前）
+        beforeMount() {
+            // console.log('beforeMount');
+            // console.log(document.body.innerHTML);
+        },
+        // 挂载完成（把template中的结构渲染出来之后）
+        mounted() {
+            // console.log('mounted');
+            // console.log(document.body.innerHTML);
+                //     $("#menu2 li a").wrapInner('<span class="out"></span>');
+            $("#menu2 li a").each(function() {
+                $('<span class="over">' + $(this).text() + "</span>").appendTo(this);
+            });
+            $("#menu2 li a").hover(
+                function() {
+                    $(".out", this)
+                        .stop()
+                        .animate({
+                            top: "48px"
+                        }, 300); // move down - hide
+                    $(".over", this)
+                        .stop()
+                        .animate({
+                            top: "0px"
+                        }, 300); // move down - show
+                },
+                function() {
+                    $(".out", this)
+                        .stop()
+                        .animate({
+                            top: "0px"
+                        }, 300); // move up - show
+                    $(".over", this)
+                        .stop()
+                        .animate({
+                            top: "-48px"
+                        }, 300); // move up - hide
+                }
+            );
+        }
     };
+    // 迁移的js代码（需要引入jQuery插件）
+    // $(document).ready(function() {
+    //     $("#menu2 li a").wrapInner('<span class="out"></span>');
+    //     $("#menu2 li a").each(function() {
+    //         $('<span class="over">' + $(this).text() + "</span>").appendTo(this);
+    //     });
+    //     $("#menu2 li a").hover(
+    //         function() {
+    //             $(".out", this)
+    //                 .stop()
+    //                 .animate({
+    //                     top: "48px"
+    //                 }, 300); // move down - hide
+    //             $(".over", this)
+    //                 .stop()
+    //                 .animate({
+    //                     top: "0px"
+    //                 }, 300); // move down - show
+    //         },
+    //         function() {
+    //             $(".out", this)
+    //                 .stop()
+    //                 .animate({
+    //                     top: "0px"
+    //                 }, 300); // move up - show
+    //             $(".over", this)
+    //                 .stop()
+    //                 .animate({
+    //                     top: "-48px"
+    //                 }, 300); // move up - hide
+    //         }
+    //     );
+    // });
 </script>
 
 <style>
     /* #app {
-      font-family: 'Avenir', Helvetica, Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-align: center;
-      color: #2c3e50;
-      margin-top: 60px;
-    } */
+                          font-family: 'Avenir', Helvetica, Arial, sans-serif;
+                          -webkit-font-smoothing: antialiased;
+                          -moz-osx-font-smoothing: grayscale;
+                          text-align: center;
+                          color: #2c3e50;
+                          margin-top: 60px;
+                        } */
     /* 导入样式 */
     @import url("./assets/statics/site/css/style.css");
+    /* 动画span的样式 */
+    .menuhd ul li a span.over {
+        background-color: orange;
+    }
 </style>
