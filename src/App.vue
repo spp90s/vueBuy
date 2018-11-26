@@ -140,8 +140,7 @@
 
         // 单文件组件开发中，代码一般都是写在跟组件相关的地方，这里还是老套路用了jQuery的入口函数，既然使用了Vue，就考虑生命周期函数
 
-        // 生命周期函数那么多，用哪一个呢？放在created函数里没效果
-
+        // 生命周期函数那么多，用哪一个呢？放在created函数里没效果，因为created只是Vue实例创建出来了，但是DOM还没有渲染出来，所以操作DOM元素的代码放这里不合适
         // 挂载之前（把template中的结构渲染出来之前）
         beforeMount() {
             // console.log('beforeMount');
@@ -151,7 +150,9 @@
         mounted() {
             // console.log('mounted');
             // console.log(document.body.innerHTML);
-                //     $("#menu2 li a").wrapInner('<span class="out"></span>');
+
+            // 操作DOM元素的代码放在这里
+            $("#menu2 li a").wrapInner('<span class="out"></span>');
             $("#menu2 li a").each(function() {
                 $('<span class="over">' + $(this).text() + "</span>").appendTo(this);
             });

@@ -9,6 +9,9 @@ import App from './App.vue'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+// 导入懒加载插件lazyload
+import VueLazyload from 'vue-lazyload';
+
 // 导入样式（在App.vue里也可以导入）
 // import './assets/statics/site/css/style.css';
 
@@ -20,6 +23,17 @@ import index from './components/index.vue';
 // 模块化开发要use一下
 Vue.use(VueRouter);
 Vue.use(ElementUI);
+// Vue.use(VueLazyload);
+Vue.use(VueLazyload, {
+  // 预加载高度比
+  // preLoad: 1.3,
+  // 加载图片失败
+  error: 'dist/error.png',
+  // 加载图片成功
+  loading: './assets/statics/img/lazyloadPic.png',
+  // 尝试次数
+  // attempt: 1
+})
 
 // 写路由规则
 const routes = [
