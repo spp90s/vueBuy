@@ -94,9 +94,9 @@
                         <li v-for="(datasItem, dataIndex) in item.datas" :key="datasItem.artID">
                             <a href="#/site/goodsinfo/87" class="">
                                 <div class="img-box">
-                                    <img :src="datasItem.img_url">
+                                    <!-- <img :src="datasItem.img_url"> -->
                                     <!-- 使用懒加载的指令 -->
-                                    <!-- <img v-lazy="http://39.108.135.214:8899/upload/201504/20/thumb_201504200046589514.jpg"> -->
+                                    <img v-lazy="datasItem.img_url" >
                                 </div>
                                 <div class="info">
                                     <h3>{{datasItem.artTitle}}</h3>
