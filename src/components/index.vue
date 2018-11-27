@@ -123,13 +123,16 @@
 
 <script>
     // 在哪用，就在哪儿导入axios
-    import axios from "axios";
-    // // 发请求，获取数据
+    // import axios from "axios";
+    // 导入axios抽取到全局 迁移入main.js中，为了让全局使用
+
+    // 发请求，获取数据
     // axios.get('http://111.230.232.110:8899/site/goods/gettopdata/goods').then(response => {
     //     console.log(response);
     //     // 设置给组件中的data中的数据
     //     console.log(this);  //undefined 说明写在这里的axios的回调函数里拿不到当前这个index组件
     // })
+
     // 导入moment.js
     import moment from "moment";
     // 类似于module.exports
@@ -185,7 +188,7 @@
             // console.log(this.message);
 
             // 发请求，获取顶部数据
-            axios
+            this.$axios
                 .get("http://111.230.232.110:8899/site/goods/gettopdata/goods")
                 .then(response => {
                     // console.log(response);
@@ -197,7 +200,7 @@
                     this.toplist = response.data.message.toplist;
                 });
             // 发请求，获取底部数据 
-            axios
+            this.$axios
                 .get('http://111.230.232.110:8899/site/goods/getgoodsgroup')
                 .then(response => {
                     // console.log(response);

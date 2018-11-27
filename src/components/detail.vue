@@ -245,11 +245,33 @@
     </div>
 </template>
 <script>
+
+    // 导入axios
+    // import axios from 'axios';   //迁移到main.js中
+
     export default {
         // 这个name跟模板里的id无关，这个name将会是在chrome的dev-tools里看到的名字
         name: "detail",
 
+        data: function() {
+            return {
+                goodsId: ""
+            }
+        },
 
+        // 创建Vue实例后
+        created() {
+            // 当匹配到一个路由时，参数值会被设置到 this.$route.params 这个对象里
+            console.log(this.$route.params);
+            console.log(this.$route.params.xxoo);
+
+            this.goodsId = this.$route.params.xxoo;
+            // axios调用接口获取数据
+            this.$axios.get(`http://111.230.232.110:8899/site/goods/getgoodsinfo/${this.goodsId}`).then(response => {
+                console.log(response);
+                
+            })
+        },
     }
 </script>
 <style>
