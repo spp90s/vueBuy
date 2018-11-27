@@ -12,9 +12,14 @@ import 'element-ui/lib/theme-chalk/index.css';
 // 导入懒加载插件lazyload
 import VueLazyload from 'vue-lazyload';
 // 导入axios以全局使用
-import axios from "axios";
+import axios from "axios";  
 // 把axios放到原型中，这样所有的Vue实例（Vue组件也是Vue实例）都可以使用
 Vue.prototype.$axios = axios;
+
+// 1. 在原型中设置基础地址（一般来说，一个项目不会访问多个服务器的接口，可以抽取基础地址）
+// Vue.prototype.$baseUrl = "http://111.230.232.110:8899/";
+// 2. 直接使用axios来设置基础地址
+axios.defaults.baseURL = "http://111.230.232.110:8899/";
 
 // 导入样式（在App.vue里也可以导入）
 // import './assets/statics/site/css/style.css';
@@ -50,10 +55,10 @@ Vue.use(VueLazyload, {
 // 写路由规则
 const routes = [
   {
-    // 根目录也对应到index组件即可
+    // 根目录是一个/
     path: '/',
+    // 也对应到index组件即可
     // component: index
-
     // 或重定向到首页
     redirect: "/index"
   },

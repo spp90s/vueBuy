@@ -189,7 +189,7 @@
 
             // 发请求，获取顶部数据
             this.$axios
-                .get("http://111.230.232.110:8899/site/goods/gettopdata/goods")
+                .get("site/goods/gettopdata/goods")
                 .then(response => {
                     // console.log(response);
                     // 设置给组件中的data中的数据
@@ -201,7 +201,7 @@
                 });
             // 发请求，获取底部数据 
             this.$axios
-                .get('http://111.230.232.110:8899/site/goods/getgoodsgroup')
+                .get('site/goods/getgoodsgroup')
                 .then(response => {
                     // console.log(response);
                     // 设置给组件中的data中的数据
