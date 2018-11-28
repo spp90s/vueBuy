@@ -124,7 +124,7 @@
 <script>
     // 在哪用，就在哪儿导入axios
     // import axios from "axios";
-    // 导入axios抽取到全局 迁移入main.js中，为了让全局使用
+    // 导入axios抽取到全局 迁移到main.js中，为了让全局使用
 
     // 发请求，获取数据
     // axios.get('http://111.230.232.110:8899/site/goods/gettopdata/goods').then(response => {
@@ -135,6 +135,7 @@
 
     // 导入moment.js
     // import moment from "moment"; //迁移到main.js中
+    
     // 类似于module.exports
     export default {
         name: "index",

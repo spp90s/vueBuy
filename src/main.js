@@ -70,7 +70,7 @@ const routes = [
   },
   {
     // 动态路径参数，以冒号开头
-    // 当匹配到一个路由时，参数值会被设置到 this.$route.params 这个对象里
+    // 当匹配到一个路由时，参数值会被设置到 this.$route.params 这个对象里，可以在每个组件内使用
     path: '/detail/:xxoo',
     component: detail
   }
@@ -93,6 +93,6 @@ Vue.filter('beautifyTime', function (value) {
 new Vue({
   // 用代码的方式告诉vue要渲染什么东西（把App.vue渲染出来）
   render: h => h(App),
-  // 挂载到Vue实例上
+  // 把路由对象挂载到Vue实例上
   router
 }).$mount('#app')

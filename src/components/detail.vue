@@ -205,22 +205,24 @@
 
         // 创建Vue实例后
         created() {
-            // 当匹配到一个路由时，参数值会被设置到 this.$route.params 这个对象里
+            // 当匹配到一个路由时，参数值会被设置到 this.$route.params 这个对象里，可以在每个组件内使用
             console.log(this.$route.params);
             console.log(this.$route.params.xxoo);
 
             this.goodsId = this.$route.params.xxoo;
-            // axios调用接口获取数据
-            this.$axios.get(`site/goods/getgoodsinfo/${this.goodsId}`).then(response => {
-                console.log(response);
-                // 商品信息
-                this.goodsinfo = response.data.message.goodsinfo;
-                // 图片列表
-                this.hotgoodslist = response.data.message.hotgoodslist;
-                // 图片列表
-                this.imglist = response.data.message.imglist;
+
+            // axios调用接口获取数据（抽取出来）
+            // this.$axios.get(`site/goods/getgoodsinfo/${this.goodsId}`).then(response => {
+            //     console.log(response);
+            //     // 商品信息
+            //     this.goodsinfo = response.data.message.goodsinfo;
+            //     // 图片列表
+            //     this.hotgoodslist = response.data.message.hotgoodslist;
+            //     // 图片列表
+            //     this.imglist = response.data.message.imglist;
                 
-            })
+            // })
+            this.getGoodsInfo();
         },
 
         // 事件
@@ -229,6 +231,37 @@
             numChange() {
                 console.log('num改变了');
                 
+            },
+
+            // 根据id获取，商品数据的方法
+            getGoodsInfo() {
+                // axios调用接口获取数据
+                this.$axios.get(`site/goods/getgoodsinfo/${this.goodsId}`).then(response => {
+                    console.log(response);
+                    // 商品信息
+                    this.goodsinfo = response.data.message.goodsinfo;
+                    // 图片列表
+                    this.hotgoodslist = response.data.message.hotgoodslist;
+                    // 图片列表
+                    this.imglist = response.data.message.imglist;
+                    
+                })
+            }
+        },
+
+        // 观察路由数据改变 watch侦听对应的数据改变时触发
+        watch: {
+            // 侦听了$route，一旦发送改变，会把新数据设置给to，老数据设置给from
+            '$route' (to, from) {
+                // 对路由变化作出响应...
+                console.log(to);    //新id
+                console.log(from);  //旧id
+                // 获取新id，并以此id发请求获取数据，渲染页面
+                this.goodsId = to.params.xxoo;
+                // 调用一下getGoodsInfo以重新获取数据
+                this.getGoodsInfo();
+                // 路由参数改变时把购买数量重置为1
+                this.buyNum = 1;
             }
         }
     }
@@ -237,3 +270,4 @@
 
 </style>
 
+ 
