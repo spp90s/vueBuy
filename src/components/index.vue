@@ -70,7 +70,7 @@
                                     <!-- 请求回来的数据中日期格式需要vue过滤器处理一下（双花括号插值），再赋值给组件 -->
                                     <!-- <span>{{item.add_time | beaytifyTime}}</span> -->
                                     <!-- 过滤器是 JavaScript 函数，因此可以接收参数 -->
-                                    <span>{{item.add_time | beaytifyTime('🐮', '🚀', '🛸')}}</span>
+                                    <span>{{item.add_time | beautifyTime('🐮', '🚀', '🛸')}}</span>
                                 </div>
                             </li>
                         </ul>
@@ -154,7 +154,7 @@
         },
         // 在一个组件的选项中定义本地的过滤器
         filters: {
-            beaytifyTime: function(value, para2, para3, para4) {
+            beautifyTime: function(value, para2, para3, para4) {
                 console.log(para2);
                 console.log(para3);
                 console.log(para4);
