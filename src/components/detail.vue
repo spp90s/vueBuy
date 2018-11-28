@@ -136,16 +136,21 @@
                                 <ul class="side-img-list">
                                     <li v-for="(item, index) in hotgoodslist" :key="item.id">
                                         <div class="img-box">
-                                            <a href="#/site/goodsinfo/90" class="">
+                                            <!-- <a href="#/site/goodsinfo/90" class=""> -->
+                                            <router-link :to="'/detail/' + item.id">
                                                 <img :src="item.img_url">
-                                            </a>
+                                            </router-link>
+                                            <!-- </a> -->
                                         </div>
                                         <div class="txt-box">
-                                            <a href="#/site/goodsinfo/90" class="">{{item.title}}</a>
+                                            <!-- <a href="#/site/goodsinfo/90" class=""> -->
+                                            <router-link :to="'/detail/' + item.id">
+                                                {{item.title}}
+                                            </router-link>
+                                            <!-- </a> -->
                                             <span>{{item.add_time | beautifyTime}}</span>
                                         </div>
                                     </li>
-             
                                 </ul>
                             </div>
                         </div>
@@ -161,7 +166,7 @@
     // import axios from 'axios';   //迁移到main.js中
 
     // 导入moment.js
-    import moment from "moment";
+    // import moment from "moment"; //迁移到main.js中
 
     export default {
         // 这个name跟模板里的id无关，这个name将会是在chrome的dev-tools里看到的名字
@@ -182,21 +187,21 @@
             }   
         },
 
-        // 在一个组件的选项中定义本地的过滤器
-        filters: {
-            beautifyTime: function(value) {
+        // 在一个组件的选项中定义本地的过滤器（局部）
+        // filters: {
+        //     beautifyTime: function(value) {
             
-                // 处理之前，第一个参数value就是接收要过滤的值，即模板双花括号插值中 | 前面写要过滤的数据
-                // if (!value) return ''
-                // value = value.toString()
-                console.log(value);
-                // 返回处理之后的value
-                // return value.charAt(0).toUpperCase() + value.slice(1)
-                // return '🐖🐖🐖🐖';
-                // 需要用moment.js来格式化日期，再返回
-                return moment(value).format("YYYY年MM月DD日");
-            }
-        },
+        //         // 处理之前，第一个参数value就是接收要过滤的值，即模板双花括号插值中 | 前面写要过滤的数据
+        //         // if (!value) return ''
+        //         // value = value.toString()
+        //         console.log(value);
+        //         // 返回处理之后的value
+        //         // return value.charAt(0).toUpperCase() + value.slice(1)
+        //         // return '🐖🐖🐖🐖';
+        //         // 需要用moment.js来格式化日期，再返回
+        //         return moment(value).format("YYYY年MM月DD日");
+        //     }
+        // },
 
         // 创建Vue实例后
         created() {

@@ -68,9 +68,9 @@
                                 <div class="txt-box">
                                     <a href="/goods/show-98.html">{{item.title}}</a>
                                     <!-- 请求回来的数据中日期格式需要vue过滤器处理一下（双花括号插值），再赋值给组件 -->
-                                    <!-- <span>{{item.add_time | beaytifyTime}}</span> -->
+                                    <span>{{item.add_time | beautifyTime}}</span>
                                     <!-- 过滤器是 JavaScript 函数，因此可以接收参数 -->
-                                    <span>{{item.add_time | beautifyTime('🐮', '🚀', '🛸')}}</span>
+                                    <!-- <span>{{item.add_time | beautifyTime('🐮', '🚀', '🛸')}}</span> -->
                                 </div>
                             </li>
                         </ul>
@@ -134,7 +134,7 @@
     // })
 
     // 导入moment.js
-    import moment from "moment";
+    // import moment from "moment"; //迁移到main.js中
     // 类似于module.exports
     export default {
         name: "index",
@@ -152,24 +152,24 @@
                 orderList: []
             };
         },
-        // 在一个组件的选项中定义本地的过滤器
-        filters: {
-            beautifyTime: function(value, para2, para3, para4) {
-                console.log(para2);
-                console.log(para3);
-                console.log(para4);
-                // 处理之前，第一个参数value就是接收要过滤的值，即模板双花括号插值中 | 前面写要过滤的数据
-                // if (!value) return ''
-                // value = value.toString()
-                console.log(value);
-                // 返回处理之后的value
-                // return value.charAt(0).toUpperCase() + value.slice(1)
-                // return '🐖🐖🐖🐖';
-                // 需要用moment.js来格式化日期，再返回
-                // return moment(value).format("YYYY年MM月DD日");
-                return moment(value).format(`YYYY${para2}MM${para3}DD${para4}`);
-            }
-        },
+        // 在一个组件的选项中定义本地的过滤器（局部）
+        // filters: {
+        //     beautifyTime: function(value, para2, para3, para4) {
+        //         console.log(para2);
+        //         console.log(para3);
+        //         console.log(para4);
+        //         // 处理之前，第一个参数value就是接收要过滤的值，即模板双花括号插值中 | 前面写要过滤的数据
+        //         // if (!value) return ''
+        //         // value = value.toString()
+        //         console.log(value);
+        //         // 返回处理之后的value
+        //         // return value.charAt(0).toUpperCase() + value.slice(1)
+        //         // return '🐖🐖🐖🐖';
+        //         // 需要用moment.js来格式化日期，再返回
+        //         // return moment(value).format("YYYY年MM月DD日");
+        //         return moment(value).format(`YYYY${para2}MM${para3}DD${para4}`);
+        //     }
+        // },
         // methods: {
         //     // 需要手动调用
         // },

@@ -15,6 +15,8 @@ import VueLazyload from 'vue-lazyload';
 import axios from "axios";  
 // 把axios放到原型中，这样所有的Vue实例（Vue组件也是Vue实例）都可以使用
 Vue.prototype.$axios = axios;
+// 导入moemnt.js
+import moment from "moment";
 
 // 1. 在原型中设置基础地址（一般来说，一个项目不会访问多个服务器的接口，可以抽取基础地址）
 // Vue.prototype.$baseUrl = "http://111.230.232.110:8899/";
@@ -80,6 +82,13 @@ const router = new VueRouter({
 }); 
 
 // Vue.config.productionTip = false
+
+// 在创建 Vue 实例之前全局定义过滤器（在所有组件中都可以访问到）
+Vue.filter('beautifyTime', function (value) {
+  
+  return moment(value).format("YYYY年MM月DD日");
+})
+
 
 new Vue({
   // 用代码的方式告诉vue要渲染什么东西（把App.vue渲染出来）
