@@ -58,7 +58,7 @@
                                             </div>
                                             <span class="stock-txt">
                                                 库存
-                                                <em id="commodityStockNum">60</em>件
+                                                <em id="commodityStockNum">{{goodsinfo.stock_quantity}}</em>件
                                             </span>
                                         </dd>
                                     </dl>
@@ -258,7 +258,11 @@
                 // 传过来的商品id
                 goodsId: "",
                 // 商品信息
-                goodsinfo: {}
+                goodsinfo: {},
+                // 图片列表
+                hotgoodslist: [],
+                // 图片列表
+                imglist: []
             }   
         },
 
@@ -272,7 +276,12 @@
             // axios调用接口获取数据
             this.$axios.get(`site/goods/getgoodsinfo/${this.goodsId}`).then(response => {
                 console.log(response);
+                // 商品信息
                 this.goodsinfo = response.data.message.goodsinfo;
+                // 图片列表
+                this.hotgoodslist = response.data.message.hotgoodslist;
+                // 图片列表
+                this.imglist = response.data.message.imglist;
                 
             })
         },
