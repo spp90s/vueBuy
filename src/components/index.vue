@@ -45,7 +45,7 @@
                     <div class="left-705">
                         <div class="banner-img">
                             <div id="focus-box" class="focus-box">
-                                <!-- element-ui封装好的组件 -->
+                                <!-- element-ui的走马灯组件 -->
                                 <el-carousel height="341px">
                                     <el-carousel-item v-for="item in sliderlist" :key="item.id">
                                         <!-- <h3>{{ item }}</h3> -->

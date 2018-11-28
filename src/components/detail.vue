@@ -40,21 +40,8 @@
                                         <dt>购买数量</dt>
                                         <dd>
                                             <div class="stock-box">
-                                                <div class="el-input-number el-input-number--small">
-                                                    <span role="button" class="el-input-number__decrease is-disabled">
-                                                        <i class="el-icon-minus"></i>
-                                                    </span>
-                                                    <span role="button" class="el-input-number__increase">
-                                                        <i class="el-icon-plus"></i>
-                                                    </span>
-                                                    <div class="el-input el-input--small">
-                                                        <!---->
-                                                        <input autocomplete="off" size="small" type="text" rows="2" max="60" min="1" validateevent="true" class="el-input__inner" role="spinbutton" aria-valuemax="60" aria-valuemin="1" aria-valuenow="1" aria-disabled="false">
-                                                        <!---->
-                                                        <!---->
-                                                        <!---->
-                                                    </div>
-                                                </div>
+                                                <!-- element-ui的计数器组件 -->
+                                                <el-input-number size="small" v-model="buyNum" @change="numChange" :min="1" :max="goodsinfo.stock_quantity" label="描述文字"></el-input-number>
                                             </div>
                                             <span class="stock-txt">
                                                 库存
@@ -262,7 +249,9 @@
                 // 图片列表
                 hotgoodslist: [],
                 // 图片列表
-                imglist: []
+                imglist: [],
+                // 选择数量
+                buyNum: 1
             }   
         },
 
@@ -285,6 +274,15 @@
                 
             })
         },
+
+        // 事件
+        methods: {
+            // 购买数量buyNum改变时触发
+            numChange() {
+                console.log('num改变了');
+                
+            }
+        }
     }
 </script>
 <style>
