@@ -17,6 +17,9 @@ import axios from "axios";
 Vue.prototype.$axios = axios;
 // 导入moemnt.js
 import moment from "moment";
+// 引入iView
+import iView from "iView";
+import 'iview/dist/styles/iview.css';
 
 // 1. 在原型中设置基础地址（一般来说，一个项目不会访问多个服务器的接口，可以抽取基础地址）
 // Vue.prototype.$baseUrl = "http://111.230.232.110:8899/";
@@ -36,6 +39,7 @@ import detail from './components/detail.vue';
 // 模块化开发要use一下
 Vue.use(VueRouter);
 Vue.use(ElementUI);
+Vue.use(iView);
 // Vue.use(VueLazyload);
 Vue.use(VueLazyload, {
 

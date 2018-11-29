@@ -64,17 +64,25 @@
                             <div id="tabHead" class="tab-head" style="position: static; top: 517px; width: 925px;">
                                 <ul>
                                     <li>
-                                        <a href="javascript:;" class="selected">商品介绍</a>
+                                        <!-- 
+                                            1. 这里逻辑简单，直接把js代码写在标签里，点击后切换selectedIndex的值
+                                            2. 是否有selected这个类名取决于selectedIndex的值
+                                        -->
+                                        <a @click="selectedIndex=0" href="javascript:;" :class="{selected: selectedIndex == 0}">商品介绍</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;">商品评论</a>
+                                        <a @click="selectedIndex=1" href="javascript:;" :class="{selected: selectedIndex == 1}">商品评论</a>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="tab-content entry" style="display: block;">
+                            <!-- 商品介绍的内容 -->
+                            <div class="tab-content entry" v-show="selectedIndex == 0" v-html="goodsinfo.content">
                                 内容
+                                <!-- {{goodsinfo.content}} -->
+                                <!-- goodsinfo.content中的数据使用v-html可以直接解析为html标签 -->
                             </div>
-                            <div class="tab-content" style="display: block;">
+                            <!-- 商品评论的内容 -->
+                            <div class="tab-content" v-show="selectedIndex == 1">
                                 <div class="comment-box">
                                     <div id="commentForm" name="commentForm" class="form-box">
                                         <div class="avatar-box">
@@ -93,37 +101,41 @@
                                     </div>
                                     <ul id="commentList" class="list-box">
                                         <p style="margin: 5px 0px 15px 69px; line-height: 42px; text-align: center; border: 1px solid rgb(247, 247, 247);">暂无评论，快来抢沙发吧！</p>
-                                        <li>
+                                        <li v-for="(item, index) in comments" :key="item.id">
                                             <div class="avatar-box">
                                                 <i class="iconfont icon-user-full"></i>
                                             </div>
                                             <div class="inner-box">
                                                 <div class="info">
-                                                    <span>匿名用户</span>
-                                                    <span>2017/10/23 14:58:59</span>
+                                                    <span>{{item.user_name}}</span>
+                                                    <span>{{item.add_time | beautifyTime}}</span>
                                                 </div>
-                                                <p>testtesttest</p>
+                                                <p>{{item.content}}</p>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="avatar-box">
-                                                <i class="iconfont icon-user-full"></i>
-                                            </div>
-                                            <div class="inner-box">
-                                                <div class="info">
-                                                    <span>匿名用户</span>
-                                                    <span>2017/10/23 14:59:36</span>
-                                                </div>
-                                                <p>很清晰调动单很清晰调动单</p>
-                                            </div>
-                                        </li>
+                            
                                     </ul>
                                     <div class="page-box" style="margin: 5px 0px 0px 62px;">
-                                        <div id="pagination" class="digg">
+                                        <!-- <div id="pagination" class="digg">
                                             <span class="disabled">« 上一页</span>
                                             <span class="current">1</span>
                                             <span class="disabled">下一页 »</span>
-                                        </div>
+                                        </div> -->
+                                        <!-- 
+                                            使用iView的分页组件
+                                            total 数据总数（默认为0）
+                                            page-size 每页条数（默认为10）
+                                            page-size-opts 每页条数切换的配置（默认为数组 [10, 20, 30, 40]）
+                                            placement 条数切换弹窗的展开方向（默认为bottom）
+                                            show-total 显示总数（默认为false）
+                                            show-elevator显示电梯，可以快速切换到某一页（默认为false）
+                                            show-sizer 显示分页，用来改变page-size（默认为false）
+
+                                            on-change 页码改变的回调，返回改变后的页码
+                                         -->
+                                        <!-- <Page :total="400" page-size-opts="[6, 12, 18, 24]" placement="top" show-elevator show-sizer /> -->
+                                        <!-- 上面直接这样写会把数组解析为字符串，需要v-bind: 动态数据绑定才会解析为数组 -->
+                                        <Page @on-change="pageChange" :total="totalCount" :page-size='pageSize' :page-size-opts='[6, 16, 26, 36]' placement='top' show-elevator show-sizer />
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +195,17 @@
                 // 图片列表
                 imglist: [],
                 // 选择数量
-                buyNum: 1
+                buyNum: 1,
+                // 标记tab栏显示哪个（默认是0）
+                selectedIndex: 0,
+                // 页码
+                pageIndex: 1,
+                // 页容量
+                pageSize: 6,
+                // 总页码
+                totalCount: 0,
+                // 评论内容
+                comments: []
             }   
         },
 
@@ -223,6 +245,8 @@
                 
             // })
             this.getGoodsInfo();
+
+            this.getComments();
         },
 
         // 事件
@@ -246,10 +270,36 @@
                     this.imglist = response.data.message.imglist;
                     
                 })
+            },
+            // 获取评论信息
+            getComments() {
+                this.$axios
+                .get(`site/comment/getbypage/goods/${this.goodsId}?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}`)
+                .then(response => {
+                    console.log(response);
+                    // 总页码
+                    this.totalCount = response.data.totalcount;
+                    // 页码
+                    this.pageIndex = response.data.pageIndex;
+                    // 页容量
+                    this.pageSize = response.data.pageSize;
+                    // 评论内容
+                    this.comments = response.data.message;
+
+                })
+            },
+            // 点击分页
+            pageChange(newPageIndex){
+                // 返回改变后的页码
+                console.log(newPageIndex);
+                // 修改页码
+                this.pageIndex = newPageIndex;
+                // 重新发请求
+                this.getComments();
             }
         },
 
-        // 观察路由数据改变 watch侦听对应的数据改变时触发
+        // 观察路由数据改变 watch侦听对应的数据改变时触发 
         watch: {
             // 侦听了$route，一旦发送改变，会把新数据设置给to，老数据设置给from
             '$route' (to, from) {
@@ -262,11 +312,18 @@
                 this.getGoodsInfo();
                 // 路由参数改变时把购买数量重置为1
                 this.buyNum = 1;
+
+                // 路由传参改变了，也要重新获取评论
+                this.getComments();
             }
         }
     }
 </script>
 <style>
+    /* 取消img底部的小间隙 */
+    .tab-content>p>img {
+        display: block;
+    }
 
 </style>
 
