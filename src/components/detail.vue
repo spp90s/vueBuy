@@ -90,11 +90,12 @@
                                         </div>
                                         <div class="conn-box">
                                             <div class="editor">
-                                                <textarea id="txtContent" name="txtContent" sucmsg=" " datatype="*10-1000" nullmsg="请填写评论内容！"></textarea>
+                                                <!-- 把输入的评论信息进行双向数据绑定 -->
+                                                <textarea id="txtContent" v-model.trim="message" name="txtContent" sucmsg=" " datatype="*10-1000" nullmsg="请填写评论内容！"></textarea>
                                                 <span class="Validform_checktip"></span>
                                             </div>
                                             <div class="subcon">
-                                                <input id="btnSubmit" name="submit" type="submit" value="提交评论" class="submit">
+                                                <input id="btnSubmit" name="submit" type="submit" value="提交评论" class="submit" @click="submitComment">
                                                 <span class="Validform_checktip"></span>
                                             </div>
                                         </div>
@@ -132,10 +133,19 @@
                                             show-sizer 显示分页，用来改变page-size（默认为false）
 
                                             on-change 页码改变的回调，返回改变后的页码
+                                            on-page-size-change 切换每页条数时的回调，返回切换后的每页条数（page-size）
                                          -->
                                         <!-- <Page :total="400" page-size-opts="[6, 12, 18, 24]" placement="top" show-elevator show-sizer /> -->
                                         <!-- 上面直接这样写会把数组解析为字符串，需要v-bind: 动态数据绑定才会解析为数组 -->
-                                        <Page @on-change="pageChange" :total="totalCount" :page-size='pageSize' :page-size-opts='[6, 16, 26, 36]' placement='top' show-elevator show-sizer />
+                                        <Page 
+                                            @on-page-size-change="sizeChange" 
+                                            @on-change="pageChange" 
+                                            :total="totalCount" 
+                                            :page-size='pageSize' 
+                                            :page-size-opts='[6, 16, 26, 36]' 
+                                            placement='top' 
+                                            show-elevator 
+                                            show-sizer />
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +215,9 @@
                 // 总页码
                 totalCount: 0,
                 // 评论内容
-                comments: []
+                comments: [],
+                // 发表的评论信息
+                message: ''
             }   
         },
 
@@ -296,6 +308,39 @@
                 this.pageIndex = newPageIndex;
                 // 重新发请求
                 this.getComments();
+            },
+            // 每页条数改变
+            sizeChange(newPageSize) {
+                //返回切换后的页容量
+                console.log(newPageSize);
+                // 修改页容量
+                this.pageSize = newPageSize;
+                // 重新发请求
+                this.pageIndex = 1; //跳回第一页
+                this.getComments();
+            },
+            // 提交评论
+            submitComment(){
+                // 非空判断
+                if(this.message == ''){
+                    // this.$Message.info('这是一条普通的提醒');
+                    this.$Message.warning('不能提交空评论');
+                    return;
+                }
+                // 不是非空，就要提交评论，就是要发到服务器去，就要调接口
+                this.$axios
+                    .post('site/validate/comment/post/goods/' + this.goodsId, {
+                        commenttxt: this.message})
+                    .then(response => {
+                        console.log(response);
+
+                    // 重新获取评论信息
+                    this.getComments();
+                    // 清空文本域的内容
+                    this.message = '';
+                    // 提示用户
+                    this.$Message.success('评论发表成功');
+                })
             }
         },
 
