@@ -96,6 +96,10 @@ Vue.filter('beautifyTime', function (value) {
   
   return moment(value).format("YYYY年MM月DD日");
 })
+// 再定义一个全局过滤器让商品评论的时间精确到时分秒（需要传入自定义的格式化字符串）
+Vue.filter('accurateTime', function (value, formatStr) {
+  return moment(value).format(formatStr);
+})
 
 
 new Vue({

@@ -113,7 +113,8 @@
                       <div class="inner-box">
                         <div class="info">
                           <span>{{item.user_name}}</span>
-                          <span>{{item.add_time | beautifyTime}}</span>
+                          <!-- <span>{{item.add_time | beautifyTime}}</span> -->
+                          <span>{{item.add_time | accurateTime("YYYY年MM月DD日 H:mm:ss")}}</span>
                         </div>
                         <p>{{item.content}}</p>
                       </div>
@@ -209,16 +210,14 @@
         message: "",
         // 放大镜图片数据
         images: {
-          normal_size: [  // required 我们自己往normal_szie这个数组里push元素（元素是一个对象，包括了当前商品的id与url）
+          normal_size: [  // required 要求我们自己往normal_size这个数组里push对象，对象包含了当前商品的id与url
             {
-              // id: 1,
-              // url: "http://yoohooworld.com/images/vue-product-zoomer/images/normal_size/1.jpeg"
-              // url: "http://pic1.win4000.com/wallpaper/2018-01-09/5a54724e365b9.jpg"
+              id: 1,
+              url: "http://pic1.win4000.com/wallpaper/2018-01-09/5a54724e365b9.jpg"
             },
             {
-              // id: 2,
-              // url: "http://yoohooworld.com/images/vue-product-zoomer/images/normal_size/2.jpeg"
-              // url: "http://imgsrc.baidu.com/imgad/pic/item/b21c8701a18b87d62cb99eca0d0828381e30fd6f.jpg"
+              id: 2,
+              url: "http://imgsrc.baidu.com/imgad/pic/item/b21c8701a18b87d62cb99eca0d0828381e30fd6f.jpg"
             }
           ]
         },
@@ -412,9 +411,27 @@
   }
   /* 约束放大镜父盒子的尺寸 */
   .pic-box {
-    width: 395px;
+    /* width: 395px; */
+    width: 200px;
     /* height: 313px; */
   }
+
+  .preview-box {
+    margin-left: 70px;
+  }
+
+  .control-box {
+    margin-left: 132.5px;
+  }
+
+  .inline-zoomer-zoomer-box .preview-box>img {
+    width: 250px;
+  }
+
+  .inline-zoomer-zoomer-box .control-box .thumb-list>img {
+    width: 50.5px;
+  }
+
 </style>
 
  
