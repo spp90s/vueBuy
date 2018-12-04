@@ -101,10 +101,58 @@ Vue.filter('accurateTime', function (value, formatStr) {
   return moment(value).format(formatStr);
 })
 
+// 导入Vuex（数据共享）
+import Vuex from 'vuex';
+Vue.use(Vuex);
+
+// 实例化数据仓库
+const store = new Vuex.Store({
+  // 状态对象
+  state: {
+    // 数据设置到state的属性中
+    // count: 0
+    // 购物车数据{id: 购买数量}
+    shopCartData: {
+
+    }
+  },
+  // 状态变更
+  mutations: {
+    // increment (state) {
+    //   state.count++
+    // }
+    // 方法名根据需求自定义，形参是仓库的状态对象，找到其属性修改数据
+    // 加入购物车的数据（除了state外，还要额外的接收id与购买数量）
+    // addCart (state, id, buyCount) {
+    // 但是参数的格式只支持1个，如果要传递多个数据，传入1个对象（含2个属性，即id与buyCount）
+    addCart (state, opt) {
+      console.log(state);
+      console.log(opt.id);
+      console.log(opt.buyCount);
+      
+      // 添加数据到shopCartData中有两种情况
+      // 1. 购物车已经加过该id的商品 --> 原有id上累加
+      // 2. 该id的商品未加入过购物车 --> 重新增加一个键值对
+      // 这就判断shopCartData中是否有这个id
+      if(state.shopCartData[opt.id] == undefined) {
+        // 没有就增加一个key
+        state.shopCartData[opt.id] = opt.buyCount;  //按已经约定好的存储格式{id: buyCount}，与传递对象时不同{id: xx, buyCount: yy}
+
+      }else {
+        // 有，就累加
+        state.shopCartData[opt.id] += opt.buyCount;
+      }
+
+
+    }
+  }
+})
 
 new Vue({
   // 用代码的方式告诉vue要渲染什么东西（把App.vue渲染出来）
   render: h => h(App),
   // 把路由对象挂载到Vue实例上
-  router
+  router,
+  // 把store挂载到Vue实例上，方便所有子组件访问                 
+  store
 }).$mount('#app')

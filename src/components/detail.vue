@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- 测试累加按钮 -->
+    <!-- <input type="button" value="点我加购物车" @click="add"> -->
     <div class="section">
       <div class="location">
         <span>当前位置：</span>
@@ -58,7 +60,8 @@
                     <dd>
                       <div id="buyButton" class="btn-buy">
                         <button onclick="cartAdd(this,'/',1,'/shopping.html');" class="buy">立即购买</button>
-                        <button onclick="cartAdd(this,'/',0,'/cart.html');" class="add">加入购物车</button>
+                        <!-- <button onclick="cartAdd(this,'/',0,'/cart.html');" class="add">加入购物车</button> -->
+                        <button @click="addCart" class="add">加入购物车</button>
                       </div>
                     </dd>
                   </dl>
@@ -277,6 +280,19 @@
     },
     // 事件
     methods: {
+      // add: function() {
+      //   this.$store.commit('increment');
+      // },
+
+      // 加入购物车
+      addCart: function() {
+        // 按约定提交payload
+        this.$store.commit('addCart', {
+          id: this.goodsId,
+          buyCount: this.buyNum
+        });
+      },
+
       // 购买数量buyNum改变时触发
       numChange() {
         console.log("num改变了");

@@ -1,9 +1,6 @@
 <template>
-    <!-- <div id="app">
-                            <img alt="Vue logo" src="./assets/logo.png">
-                            <HelloWorld msg="Welcome to Your Vue.js App"/>
-                          </div> -->
-    <!-- App.vue是最顶级的组件 根组件（类似于布局中最顶级的那个div，最外面的那个容器），router-link、router-view放这里，其他组件都放components里 -->
+
+    <!-- App.vue是最顶级的组件 根组件（类似于布局中最顶级的那个div，最外面的那个容器），router-link、router-view放这里，其他组件都放在src下的components文件夹里 -->
     <div>
         <!-- 顶部 -->
         <div class="header">
@@ -31,7 +28,7 @@
                         <a href="" class="">
                             <i class="iconfont icon-cart"></i>购物车(
                                 <span id="shoppingCartCount">
-                                <span>4</span>
+                                <span>{{$store.state.shopCartData.id}}</span>
                             </span>)
                         </a>
                     </div>
@@ -87,6 +84,7 @@
                 </div>
             </div>
         </div>
+        <!-- <input type="button" value="加入购物车" @click="add"> -->
         <!-- 路由出口 -->
         <router-view></router-view>
         <!-- 底部 -->
@@ -125,7 +123,7 @@
 </template>
 
 <script>
-    // import HelloWorld from './components/HelloWorld.vue'
+
     // 导入jquery
     import $ from 'jquery';
     // 暴露组件
@@ -137,6 +135,27 @@
         // components: {
         //   HelloWorld
         // }
+
+        methods: {
+            add() {
+                // 修改Vuex数据仓库中的数据
+                // 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
+                // this.$store.commit('addCart', 66, 10);
+                this.$store.commit('addCart', {
+                    id: 66,
+                    buyCount: 10
+                });
+
+                // 下面这样改虽然页面上的购物车数量变了，但在Vue Devtools中的Vuex里查看数据仓库却没有变
+                // this.$store.state.count++;
+                
+            }
+        },
+
+        created() {
+            console.log(this.$store);
+            console.log(this.$store.state);
+        },
 
         // 单文件组件开发中，代码一般都是写在跟组件相关的地方，这里还是老套路用了jQuery的入口函数，既然使用了Vue，就考虑生命周期函数
 
@@ -221,13 +240,13 @@
 
 <style>
     /* #app {
-                          font-family: 'Avenir', Helvetica, Arial, sans-serif;
-                          -webkit-font-smoothing: antialiased;
-                          -moz-osx-font-smoothing: grayscale;
-                          text-align: center;
-                          color: #2c3e50;
-                          margin-top: 60px;
-                        } */
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 60px;
+    } */
     /* 导入样式 */
     @import url("./assets/statics/site/css/style.css");
     /* 动画span的样式 */
