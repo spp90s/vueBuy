@@ -111,9 +111,9 @@ const store = new Vuex.Store({
   state: {
     // 数据设置到state的属性中
     // count: 0
-    // 购物车数据{id: 购买数量}
+    // 仓库中购物车数据的存储格式为 {id: 购买数量}
     shopCartData: {
-
+      
     }
   },
   // 状态变更
@@ -125,25 +125,48 @@ const store = new Vuex.Store({
     // 加入购物车的数据（除了state外，还要额外的接收id与购买数量）
     // addCart (state, id, buyCount) {
     // 但是参数的格式只支持1个，如果要传递多个数据，传入1个对象（含2个属性，即id与buyCount）
-    addCart (state, opt) {
+    addCart(state, opt) {
       console.log(state);
       console.log(opt.id);
       console.log(opt.buyCount);
       
       // 添加数据到shopCartData中有两种情况
       // 1. 购物车已经加过该id的商品 --> 原有id上累加
-      // 2. 该id的商品未加入过购物车 --> 重新增加一个键值对
+      // 2. 该id的商品未加入过购物车 --> 重新增加一个键值对（js对象允许动态添加属性）
       // 这就判断shopCartData中是否有这个id
       if(state.shopCartData[opt.id] == undefined) {
-        // 没有就增加一个key
-        state.shopCartData[opt.id] = opt.buyCount;  //按已经约定好的存储格式{id: buyCount}，与传递对象时不同{id: xx, buyCount: yy}
+        // 没有就动态增加一个键值对，按已经约定好的存储格式{id: buyCount}，与传递对象时不同{id: xx, buyCount: yy}
+        // state.shopCartData[opt.id] = opt.buyCount;
+        Vue.set(state.shopCartData, opt.id, opt.buyCount);
 
       }else {
         // 有，就累加
         state.shopCartData[opt.id] += opt.buyCount;
       }
+    }
+  },
+  // Vuex的getters 类似于 store 的computed
+  getters: {
+    goodsTotalCount(state){
+      //进入详情页后才触发了一次，后面数据的更改并没有触发该方法的重复调用
+      console.log('getters触发了');
+      /*
+      why?
+      我们知道Vuex 的 store 中的状态是响应式的，那么当我们变更状态时，监视状态的 Vue 组件也会自动更新
+      这也意味着 Vuex 中的 mutation 需遵守 Vue 的响应规则
+      1. 最好提前在你的 store 中初始化好所有所需属性
+      2. 当需要在对象上添加新属性时，为了让Vue可以观察到这个数据的改变，你应该使用 Vue.set(state中的对象, '属新性名', 属性值)
+      3. 当需要以新对象替换老对象时，你应该使用 state.obj = { ...state.obj, newProp: 123 }
+      */
 
+      // 通过state就可以访问到仓库的数据
+      // 先遍历再累加
+      let totalCount = 0;
+      for (const id in state.shopCartData) {
 
+          totalCount += state.shopCartData[id];
+      }
+      return totalCount;
     }
   }
 })

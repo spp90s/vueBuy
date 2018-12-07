@@ -22,13 +22,15 @@
                         <span>
                             <a href="" class="">会员中心</a>
                             <strong>|</strong>
-                            <a>退出</a>
+                            <a>退出</a> 
                             <strong>|</strong>
                         </span>
                         <a href="" class="">
                             <i class="iconfont icon-cart"></i>购物车(
                                 <span id="shoppingCartCount">
-                                <span>{{$store.state.shopCartData.id}}</span>
+                                <!-- <span>{{shoppingCartCount}}</span> -->
+                                <!-- <span>{{$store.state.shopCartData.id}}</span> -->
+                                <span>{{$store.getters.goodsTotalCount}}</span>
                             </span>)
                         </a>
                     </div>
@@ -137,20 +139,27 @@
         // }
 
         methods: {
-            add() {
+            // add() {
                 // 修改Vuex数据仓库中的数据
                 // 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation
                 // this.$store.commit('addCart', 66, 10);
-                this.$store.commit('addCart', {
-                    id: 66,
-                    buyCount: 10
-                });
+                // this.$store.commit('addCart', {
+                    // id: 66,
+                    // buyCount: 10
+                // });
 
                 // 下面这样改虽然页面上的购物车数量变了，但在Vue Devtools中的Vuex里查看数据仓库却没有变
                 // this.$store.state.count++;
                 
-            }
+            // }
         },
+        // 在Vuex中使用computed去响应仓库里的数据是无效的
+        // computed: {
+        //     shoppingCartCount() {
+                
+        //         return this.$store.state.shopCartData.id;
+        //     }
+        // },
 
         created() {
             console.log(this.$store);
