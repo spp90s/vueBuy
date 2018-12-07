@@ -121,7 +121,11 @@
                 </div>
             </div>
         </div>
-    </div>
+        <!-- 返回顶部 -->
+        <BackTop :height="10" :bottom="50">
+            <div class="top" style="transform: rotate(-45deg)">🚀</div>
+        </BackTop>
+  </div>
 </template>
 
 <script>
@@ -261,5 +265,19 @@
     /* 动画span的样式 */
     .menuhd ul li a span.over {
         background-color: orange;
+    }
+
+
+    /* 返回顶部的样式 */
+    .top{
+        padding: 10px;
+        /* background: rgba(0, 153, 229, .7); */
+        color: #fff;
+        text-align: center;
+        border-radius: 2px;
+
+        font-size: 40px;
+        border: 2px solid skyblue;
+        border-radius: 50%;
     }
 </style>
