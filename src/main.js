@@ -133,7 +133,7 @@ const store = new Vuex.Store({
         // increment (state) {
         //   state.count++
         // }
-        // 方法名根据需求自定义，形参是仓库的状态对象，找到其属性修改数据
+        // 方法名根据需求自定义，形参是仓库的状态对象state，找到其属性修改数据
         // 加入购物车的数据（除了state外，还要额外的接收id与购买数量）
         // addCart (state, id, buyCount) {
         // 但是参数的格式只支持1个，如果要传递多个数据，传入1个对象（含2个属性，即id与buyCount）
@@ -155,6 +155,13 @@ const store = new Vuex.Store({
                 // 有，就累加
                 state.shopCartData[opt.id] += opt.buyCount;
             }
+        },
+
+        // 根据参数修改购物车商品数据
+        updateCart(state, opt) {
+            // 传入的参数格式{id:'', newCount:''}
+            state.shopCartData[opt.id] = opt.newCount;  //新数据直接覆盖旧数据
+
         }
     },
     // Vuex的getters 类似于 store 的computed

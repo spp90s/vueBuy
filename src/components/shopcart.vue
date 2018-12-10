@@ -74,17 +74,19 @@
                                         </div>
                                     </td>
                                     <td><img :src="item.img_url" alt=""><span>{{item.title}}</span></td>
+                                    <!-- 单价 -->
                                     <td>{{item.sell_price}}</td>
                                     <td>
-                                        <div class="el-input-number el-input-number--mini"><span role="button" class="el-input-number__decrease"><i class="el-icon-minus"></i></span><span role="button" class="el-input-number__increase"><i class="el-icon-plus"></i></span>
-                                            <div class="el-input el-input--mini">
-                                                <!----><input type="text" autocomplete="off" max="Infinity" min="0" class="el-input__inner" role="spinbutton" aria-valuemax="Infinity" aria-valuemin="0" aria-valuenow="1" aria-disabled="undefined">
-                                                <!---->
-                                                <!---->
-                                                <!---->
-                                            </div>
-                                        </div>
+                                        <!-- 
+                                            v-on监听原生DOM事件，方法以事件event为唯一形参
+
+                                            如果使用了内联语句，方法就可以访问$event属性
+                                                第1个形参：自己传入的自定义参数
+                                                第2个形参：获取原本的参数
+                                            -->
+                                        <el-input-number v-model="item.buycount" @change="countChange(item.id, $event)" :min="1" label="描述文字"></el-input-number>
                                     </td>
+                                    <!-- 总价 -->
                                     <td>{{item.sell_price * item.buycount}}</td>
                                     <td><button type="button" class="el-button el-button--danger is-circle"><!----><i class="el-icon-delete"></i><!----></button></td>
                                 </tr>
@@ -149,10 +151,21 @@
                     });
                     // 修改完了之后赋值给Data中的goodsList数组
                     this.goodsList = response.data.message;
-                    // console.log(response);
+                    console.log(response);
                 });
         },
-        methods: {}
+        methods: {
+            countChange(id, newCount) {
+                // 个数改变
+                console.log(id, newCount);
+                // 修改Vuex中的数据（但目前状态变更里还没有修改数据的方法，去main.js中新加一个方法updateCart）
+                this.$store.commit('updateCart', {
+                    // 传入参数{id: '', newCount:  }
+                    id,
+                    newCount
+                });
+            }
+        }
     }
 </script>
 
