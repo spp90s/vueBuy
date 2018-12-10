@@ -377,6 +377,7 @@
                 // 不是非空，就要提交评论，就是要发到服务器去，就要调接口
                 this.$axios
                     .post("site/validate/comment/post/goods/" + this.goodsId, {
+                        // API文档中规定了传入参数的格式字段为commentxt
                         commenttxt: this.message
                     })
                     .then(response => {
