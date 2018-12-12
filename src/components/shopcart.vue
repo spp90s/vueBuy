@@ -91,9 +91,9 @@
                                 <tr>
                                     <th align="right" colspan="8">
                                         已选择商品
-                                        <b class="red" id="totalQuantity">0</b> 件 &nbsp;&nbsp;&nbsp; 商品总金额（不含运费）：
+                                        <b class="red" id="totalQuantity">{{totalNumSelected}}</b> 件 &nbsp;&nbsp;&nbsp; 商品总金额（不含运费）：
                                         <span class="red">￥</span>
-                                        <b class="red" id="totalAmount">0</b>元
+                                        <b class="red" id="totalAmount">{{totalPriceSelected}}</b>元
                                     </th>
                                 </tr>
                             </tbody>
@@ -190,6 +190,32 @@
                     id,
                     newCount
                 });
+            }
+        },
+        // 计算属性
+        computed: {
+            // 选中商品个数
+            totalNumSelected() {
+                // 循环累加被选中的商品个数
+                let totalNum = 0;
+                this.goodsList.forEach(v => {
+                    if(v.selected == true) {
+                        totalNum += v.buycount
+                    }
+                });
+                return totalNum;
+            },
+            // 选中总价
+            totalPriceSelected() {
+                // 循环累加被选中的商品价格
+                let totalPrice = 0;
+                this.goodsList.forEach(v => {
+                    if(v.selected == true) {
+                        totalPrice += v.buycount*v.sell_price;
+                    }
+                });
+                return totalPrice;
+
             }
         }
     }
