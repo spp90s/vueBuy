@@ -68,10 +68,9 @@
                                 <!-- 买了东西显示的内容 -->
                                 <tr v-if="goodsList.lenght != 0" v-for="(item, index) in goodsList" :key="item.id">
                                     <td>
-                                        <div role="switch" aria-checked="true" class="el-switch is-checked"><input type="checkbox" name="" true-value="true" class="el-switch__input">
-                                            <!----><span class="el-switch__core" style="width: 40px; border-color: rgb(19, 206, 102); background-color: rgb(19, 206, 102);"></span>
-                                            <!---->
-                                        </div>
+                                        <!-- 使用element-ui的switch组件替换 -->
+                                        <el-switch v-model="item.selected" active-color="#13ce66" inactive-color="#ff4949">
+                                        </el-switch>
                                     </td>
                                     <td><img :src="item.img_url" alt=""><span>{{item.title}}</span></td>
                                     <!-- 单价 -->
@@ -79,11 +78,10 @@
                                     <td>
                                         <!-- 
                                             v-on监听原生DOM事件，方法以事件event为唯一形参
-
                                             如果使用了内联语句，方法就可以访问$event属性
                                                 第1个形参：自己传入的自定义参数
                                                 第2个形参：获取原本的参数
-                                            -->
+                                        -->
                                         <el-input-number v-model="item.buycount" @change="countChange(item.id, $event)" :min="1" label="描述文字"></el-input-number>
                                     </td>
                                     <!-- 总价 -->
@@ -144,14 +142,42 @@
                 .get(`site/comment/getshopcargoods/${ids}`)
                 .then(response => {
                     // console.log(response);
-                    // 接口文档中规定了buyCount要我们自己去修改为真实值
-                    response.data.message.forEach(v => {
-                        // 当前这个商品的购买数量数量 == Vuex中的购买数量
-                        v.buycount = this.$store.state.shopCartData[v.id];
-                    });
-                    // 修改完了之后赋值给Data中的goodsList数组
+                    // 接口文档中规定了buyCount要我们自己去修改为真实值（两种方法）
+
+                    /* 方法一: 先循环，再赋值
+                        先循环设置好数据，尤其是内部字段
+                        再赋值给Vuex中的数据，Vue会自动为所有的字段增加get、set，这样才能检查到数据的更改
+                    */
+                    // response.data.message.forEach(v => {
+                    // // 当前商品的购买数量 = Vuex中的购买数量
+                    //     v.buycount = this.$store.state.shopCartData[v.id];
+                    //     // 修改选中状态默认为true
+                    //     v.selected = true;
+                    // });
+                    // // 修改完了之后赋值给data中的goodsList数组
+                    // this.goodsList = response.data.message;
+                    // console.log(response);
+
+                    /* 方法二: 先赋值给data中的goodsList数组，再循环增加字段
+                        先赋值给Vuex，再动态地添加字段，Vue是不会自动增加get、set
+
+                        如何解决？
+                        动态添加的属性，Vue是观察不到数据的改变的，需要Vue.set告诉Vue该字段是后来新增的，帮我们增加get、set
+                    */
                     this.goodsList = response.data.message;
-                    console.log(response);
+                    response.data.message.forEach(v => {
+                        console.log(v);
+                        // 当前商品的购买数量 = Vuex中的购买数量
+                        v.buycount = this.$store.state.shopCartData[v.id];
+                        // 修改选中状态默认为true
+                        // v.selected = true;
+                        // Vue.set(v, 'selected', true);
+                        // 组件中要使用 this.$set 去访问 Vue.set
+                        this.$set(v, 'selected', true);
+                    });
+
+                    // 打印字段，查看goodsList是否有selected的get与set属性
+                    console.log(this.goodsList);
                 });
         },
         methods: {

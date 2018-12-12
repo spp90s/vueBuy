@@ -149,6 +149,7 @@ const store = new Vuex.Store({
             if (state.shopCartData[opt.id] == undefined) {
                 // 没有就动态增加一个键值对，按已经约定好的存储格式{id: buyCount}，与传递对象时不同{id: xx, buyCount: yy}
                 // state.shopCartData[opt.id] = opt.buyCount;
+                // 上面这样动态添加属性，Vue是观察不到数据的改变的，需要Vue.set告诉Vue该字段是后来新增的，帮我们增加get、set
                 Vue.set(state.shopCartData, opt.id, opt.buyCount);
 
             } else {
