@@ -162,9 +162,18 @@ const store = new Vuex.Store({
         updateCart(state, opt) {
             // 传入的参数格式{id:'', newCount:''}
             state.shopCartData[opt.id] = opt.newCount;  //新数据直接覆盖旧数据
+        },
 
+        // 根据id删除数据
+        delById(state, id) {
+            
+            // 删除js对象中的一个属性
+            // delete state.shopCartData[id];
+            // 上面这样动态删除属性，Vue是观察不到数据的改变的，需要Vue.delete告诉Vue该字段被删除了，这样才能同步刷新
+            Vue.delete(state.shopCartData, id);
         }
     },
+
     // Vuex的getters 类似于 store 的computed
     getters: {
         goodsTotalCount(state) {
@@ -199,7 +208,6 @@ new Vue({
     // 把store挂载到Vue实例上，方便所有子组件访问                 
     store
 }).$mount('#app')
-
 
 // 浏览器关闭事件
 window.onbeforeunload = function () {

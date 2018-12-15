@@ -86,7 +86,7 @@
                                     </td>
                                     <!-- 总价 -->
                                     <td>{{item.sell_price * item.buycount}}</td>
-                                    <td><button type="button" class="el-button el-button--danger is-circle"><!----><i class="el-icon-delete"></i><!----></button></td>
+                                    <td><button type="button" @click="delGoods(item.id)" class="el-button el-button--danger is-circle"><i class="el-icon-delete"></i></button></td>
                                 </tr>
                                 <tr>
                                     <th align="right" colspan="8">
@@ -143,13 +143,12 @@
                 .then(response => {
                     // console.log(response);
                     // 接口文档中规定了buyCount要我们自己去修改为真实值（两种方法）
-
                     /* 方法一: 先循环，再赋值
                         先循环设置好数据，尤其是内部字段
                         再赋值给Vuex中的数据，Vue会自动为所有的字段增加get、set，这样才能检查到数据的更改
                     */
                     // response.data.message.forEach(v => {
-                    // // 当前商品的购买数量 = Vuex中的购买数量
+                    // // 需要手动将当前商品的购买数量 = Vuex中的购买数量
                     //     v.buycount = this.$store.state.shopCartData[v.id];
                     //     // 修改选中状态默认为true
                     //     v.selected = true;
@@ -157,17 +156,15 @@
                     // // 修改完了之后赋值给data中的goodsList数组
                     // this.goodsList = response.data.message;
                     // console.log(response);
-
                     /* 方法二: 先赋值给data中的goodsList数组，再循环增加字段
                         先赋值给Vuex，再动态地添加字段，Vue是不会自动增加get、set
-
                         如何解决？
                         动态添加的属性，Vue是观察不到数据的改变的，需要Vue.set告诉Vue该字段是后来新增的，帮我们增加get、set
                     */
                     this.goodsList = response.data.message;
                     response.data.message.forEach(v => {
                         console.log(v);
-                        // 当前商品的购买数量 = Vuex中的购买数量
+                        // 需要手动将当前商品的购买数量 = Vuex中的购买数量
                         v.buycount = this.$store.state.shopCartData[v.id];
                         // 修改选中状态默认为true
                         // v.selected = true;
@@ -175,7 +172,6 @@
                         // 组件中要使用 this.$set 去访问 Vue.set
                         this.$set(v, 'selected', true);
                     });
-
                     // 打印字段，查看goodsList是否有selected的get与set属性
                     console.log(this.goodsList);
                 });
@@ -190,6 +186,35 @@
                     id,
                     newCount
                 });
+            },
+            // 删除数据 弹窗提示
+            delGoods(id) {
+                this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    // 不仅删除当前该组件中的数据
+                    this.goodsList.forEach((v, i, arr) => {
+                        if(v.id == id){
+                            arr.splice(i, 1);
+                        }
+                    }),
+                    
+                    // 还要删除Vuex中的商品数据，即提交mutation
+                    this.$store.commit('delById', id);
+
+                    // 再提示用户
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
             }
         },
         // 计算属性
@@ -199,7 +224,7 @@
                 // 循环累加被选中的商品个数
                 let totalNum = 0;
                 this.goodsList.forEach(v => {
-                    if(v.selected == true) {
+                    if (v.selected == true) {
                         totalNum += v.buycount
                     }
                 });
@@ -210,12 +235,11 @@
                 // 循环累加被选中的商品价格
                 let totalPrice = 0;
                 this.goodsList.forEach(v => {
-                    if(v.selected == true) {
-                        totalPrice += v.buycount*v.sell_price;
+                    if (v.selected == true) {
+                        totalPrice += v.buycount * v.sell_price;
                     }
                 });
                 return totalPrice;
-
             }
         }
     }
