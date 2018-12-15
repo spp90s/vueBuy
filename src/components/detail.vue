@@ -61,7 +61,7 @@
                                             <div id="buyButton" class="btn-buy">
                                                 <button onclick="cartAdd(this,'/',1,'/shopping.html');" class="buy">立即购买</button>
                                                 <!-- <button onclick="cartAdd(this,'/',0,'/cart.html');" class="add">加入购物车</button> -->
-                                                <button @click="addCart" class="add">加入购物车</button>
+                                                <button @click="addCart" ref="toCart" class="add">加入购物车</button>
                                             </div>
                                         </dd>
                                     </dl>
@@ -179,6 +179,7 @@
                 </div>
             </div>
         </div>
+        <img ref="flyImg" class="fly-img" :src="imglist[0].original_path" alt="">
     </div>
 </template>
 <script>
@@ -186,6 +187,9 @@
     // import axios from 'axios';   //迁移到main.js中
     // 导入moment.js
     // import moment from "moment"; //迁移到main.js中
+    // 导入jquery
+    import $ from 'jquery';
+
     export default {
         // 这个name跟模板里的id无关，这个name将会是在chrome的dev-tools里看到的名字
         name: "detail",
@@ -285,11 +289,20 @@
             // },
             // 加入购物车
             addCart: function() {
-                // 按约定提交payload
+                // 按约定的格式提交payload
                 this.$store.commit('addCart', {
                     id: this.goodsId,
                     buyCount: this.buyNum
                 });
+
+                // ref被用来给元素或子组件注册引用信息，所以可以通过ref获取元素，且引用信息将会注册在父组件的$refs对象上
+                console.log(this.$refs.toCart);
+                // 获取按钮的位置
+                let startPos = $(this.$refs.toCart).offset();
+                console.log(startPos);  // 坐标对象
+
+                $(this.$refs.flyImg).css(startPos).show();
+                
             },
             // 购买数量buyNum改变时触发
             numChange() {
@@ -436,6 +449,19 @@
     .inline-zoomer-zoomer-box .control-box .thumb-list>img {
         width: 50.5px;
     }
+
+    /* 点击加入购物车时移动的图片 */
+    .fly-img {
+        width: 60px;
+        height: 60px;
+        position: absolute;
+        /* 1185px 875px */
+        left: 592px;
+        top: 434px;
+
+        display: none;
+    }
+
 </style>
 
  
