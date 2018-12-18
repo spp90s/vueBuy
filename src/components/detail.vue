@@ -179,7 +179,7 @@
                 </div>
             </div>
         </div>
-        <img ref="flyImg" class="fly-img" :src="imglist[0].original_path" alt="">
+        <img ref="flyImg" class="fly-img" style="display: none" :src="imglist[0].original_path" alt="">
     </div>
 </template>
 <script>
@@ -246,7 +246,9 @@
                     scroll_items: 5,
                     // 选中的缩略图的边框颜色
                     choosed_thumb_border_color: "#f40"
-                }
+                },
+                // 动画是否播放完毕
+                isFinished: true
             };
         },
         // 在一个组件的选项中定义本地的过滤器（局部）
@@ -289,20 +291,61 @@
             // },
             // 加入购物车
             addCart: function() {
-                // 按约定的格式提交payload
-                this.$store.commit('addCart', {
-                    id: this.goodsId,
-                    buyCount: this.buyNum
-                });
+                // 调用Vuex中的数据修改方法，按约定的格式提交payload（迁移至animate的回调函数里，动画结束了才增加数字）
+                // this.$store.commit('addCart', {
+                //     id: this.goodsId,
+                //     buyCount: this.buyNum
+                // });
 
+                // 判断动画是否播放完毕，满足条件说明动画未完成，不能继续下一次动画
+                if(this.isFinished == false){
+                    return;
+                }
+                // 上面条件不满足，说明这一次点击进来时isFinished为true，表示上一次动画已完成，就改为false，表示这一次还未完成
+                this.isFinished = false;
+                // $(this.$refs.toCart).css({'background-color':'gray', 'cursor':'not-allowed'});
+                $(this.$refs.toCart).addClass('disabled');
+
+                console.log(this);
                 // ref被用来给元素或子组件注册引用信息，所以可以通过ref获取元素，且引用信息将会注册在父组件的$refs对象上
                 console.log(this.$refs.toCart);
                 // 获取按钮的位置
-                let startPos = $(this.$refs.toCart).offset();
-                console.log(startPos);  // 坐标对象
+                let startSite = $(this.$refs.toCart).offset();
+                console.log(startSite);  // 起始坐标对象
 
-                $(this.$refs.flyImg).css(startPos).show();
+                // 获取父组件
+                console.log(this.$parent);  //App.vue
+                console.log(this.$parent.$refs.cart);   //购物车i标签
+
+                let targetSite = $(this.$parent.$refs.cart).offset();
+                console.log(targetSite);    // 目标坐标对象
                 
+                // 使用jquery设置多个样式，正好直接传入起始坐标对象
+                // $(this.$refs.flyImg).css(startSite).show().addClass('animate').animate({'left': targetSite.left, 'top': targetSite.top}, 1000, function () {
+                //     // 在动画执行完的回调里隐藏图片
+                //     console.log(this);          //img标签     
+                //     console.log($(this)[0]);    //img标签
+                //     // $(this).css('display', 'none');
+                //     $(this).hide().removeClass('animate');
+                // });
+                $(this.$refs.flyImg).css(startSite).stop().show().addClass('animate').animate({'left': targetSite.left, 'top': targetSite.top}, 1000, () => {
+                    // 在动画执行完的回调里隐藏图片
+                    console.log(this.$refs.flyImg);
+                    // $(this.$refs.flyImg).css('display', 'none');
+                    $(this.$refs.flyImg).hide().removeClass('animate');
+
+                    // 调用Vuex中的数据修改方法，按约定的格式提交payload
+                    this.$store.commit('addCart', {
+                        id: this.goodsId,
+                        buyCount: this.buyNum
+                    });
+
+                    // 动画完成后设置标识isFinished为true
+                    this.isFinished = true;
+                    // $(this.$refs.toCart).css({'background-color':'', 'cursor':''});
+                    // 移除类名
+                    $(this.$refs.toCart).removeClass('disabled');
+                });
             },
             // 购买数量buyNum改变时触发
             numChange() {
@@ -455,11 +498,23 @@
         width: 60px;
         height: 60px;
         position: absolute;
-        /* 1185px 875px */
-        left: 592px;
-        top: 434px;
+        /* 1185px 875px 手动量完除以2 */
+        /* left: 592px; */
+        /* top: 434px; */
 
-        display: none;
+        /* display: none; */
+    }
+
+    /* 移动图片的动画样式 */
+    .animate {
+        transition: transform 1s, opacity 2s;
+        transform: rotate(360deg) scale(.3, .3);
+        opacity: 0;
+    }
+
+    .goods-spec .spec-box .btn-buy .add.disabled {
+        background-color: gray;
+        cursor: not-allowed;
     }
 
 </style>

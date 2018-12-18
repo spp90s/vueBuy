@@ -27,7 +27,7 @@
                         </span>
                         <!-- <a href="" class=""> -->
                         <router-link to="/shopcart">
-                            <i class="iconfont icon-cart"></i>购物车(
+                            <i class="iconfont icon-cart" ref="cart"></i>购物车(
                                 <span id="shoppingCartCount">
                                 <!-- <span>{{shoppingCartCount}}</span> -->
                                 <!-- <span>{{$store.state.shopCartData.id}}</span> -->
