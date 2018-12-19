@@ -179,7 +179,13 @@
                 </div>
             </div>
         </div>
-        <img ref="flyImg" class="fly-img" style="display: none" :src="imglist[0].original_path" alt="">
+        <!-- 
+            页面一打开 imglist里没有数据
+            在created中才发起请求从服务器获取了数据，进而才取到值 
+            
+            故默认情况下imglist为空数组，则imglist[0]为undefined
+        -->
+        <img ref="flyImg" class="fly-img" style="display: none" :src="imglist.length == 0?'':imglist[0].original_path" alt="">
     </div>
 </template>
 <script>
@@ -380,7 +386,7 @@
                         // 但是这个放大镜插件不能自动刷新渲染图片，怎么办？
                         // 1. 刷新网页不可取
                         // window.location.reload();
-                        // 2. 强制让放大镜重新生成一次 v-if
+                        // 2. 强制让放大镜重新生成一次 v-if="images.normal_size.length != 0"
                     });
             },
             // 获取评论信息

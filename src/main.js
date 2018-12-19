@@ -125,8 +125,9 @@ const store = new Vuex.Store({
     state: {
         // 数据设置到state的属性中
         // count: 0
-        // 仓库中购物车数据的存储格式为 {id: 购买数量}
-        shopCartData: JSON.parse(localStorage.getItem('cartData')) || {}
+        // 仓库store中购物车数据shopCartData的存储格式为 {id: 购买数量}
+        // shopCartData: JSON.parse(localStorage.getItem('cartData')) || {}
+        shopCartData: JSON.parse(sessionStorage.getItem('cartData')) || {}
     },
     // 状态变更
     mutations: {
@@ -212,5 +213,6 @@ new Vue({
 // 浏览器关闭事件
 window.onbeforeunload = function () {
     //保存
-    window.localStorage.setItem('cartData', JSON.stringify(store.state.shopCartData));
+    // window.localStorage.setItem('cartData', JSON.stringify(store.state.shopCartData));
+    window.sessionStorage.setItem('cartData', JSON.stringify(store.state.shopCartData));
 }
