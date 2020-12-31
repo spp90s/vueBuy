@@ -7,7 +7,7 @@
       <div class="head-top">
         <div class="section">
           <div class="left-box">
-            <span>微买</span>
+            <span>微买!!!</span>
             <a target="_blank" href="#"></a>
             <a target="_blank" href="#"></a>
           </div>
