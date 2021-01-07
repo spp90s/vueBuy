@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- 测试累加按钮 -->
+    <!-- 测试累加按钮!!! -->
     <!-- <input type="button" value="点我加购物车" @click="add"> -->
     <div class="section">
       <div class="location">
