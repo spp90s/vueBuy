@@ -1,6 +1,6 @@
 <template>
 
-    <!-- App.vue是最顶级的组件 根组件（类似于布局中最顶级的那个div，最外面的那个容器），router-link、router-view放这里，其他组件都放在src下的components文件夹里 -->
+    <!-- App.vue是最顶级的组件 根组件（类似于布局中最顶级的那个div，最外面的那个容器），router-link、router-view放这里，其他组件都放在src下的components文件夹里！！ -->
     <div>
         <!-- 顶部 -->
         <div class="header">
